@@ -238,3 +238,4 @@ getImageOverlay <- function(ids, images) {
     ids <- c("scale", ids)
     return(image_mosaic(image_join(images[ids])))
 }
+

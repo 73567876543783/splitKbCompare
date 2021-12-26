@@ -7,6 +7,7 @@
 library(DT)
 library(dplyr)
 library(shiny)
+library(shinydashboard)
 library(shinythemes)
 library(shinyWidgets)
 library(magick)
@@ -14,6 +15,9 @@ library(markdown)
 
 # Load custom functions
 source(file.path("code", "functions.R"))
+
+# Load custom UI elements
+source(file.path("code", "uiElements.R"))
 
 # Load data
 keyboards <- loadKeyboards()

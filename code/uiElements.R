@@ -1,0 +1,240 @@
+filterButtons <- function() {
+    list(
+        div(
+            style = "display: inline-block; margin-bottom: 15px;",
+            dropdown(
+                label = "Number of Keys",
+                width = "200%",
+                sliderInput(
+                    inputId = "numKeys",
+                    label = NULL,
+                    min = min(keyboards$nKeysMin),
+                    max = max(keyboards$nKeysMax),
+                    value = c(min(keyboards$nKeysMin), max(keyboards$nKeysMax)),
+                    step = 1
+                )
+            )
+        ),
+        div(
+            style = "display: inline-block; margin-bottom: 15px;",
+            dropdown(
+                label = "Number of Rows",
+                width = "200%",
+                sliderInput(
+                    inputId = "numRows",
+                    label = NULL,
+                    min = min(keyboards$numRows),
+                    max = max(keyboards$numRows),
+                    value = c(min(keyboards$numRows), max(keyboards$numRows)),
+                    step = 1
+                )
+            )
+        ),
+        div(
+            style = "display: inline-block",
+            pickerInput(
+                inputId = "hasNumRow",
+                choices = list(
+                    "Only with number row" = 1,
+                    "Only without number row" = 0
+                ),
+                multiple = TRUE,
+                options = list(
+                    `selected-text-format` = "static",
+                    title = "Number Row"
+                )
+            )
+        ),
+        div(
+            style = "display: inline-block",
+            pickerInput(
+                inputId = "colStagger",
+                choices = list("Aggressive", "Moderate", "None"),
+                multiple = TRUE,
+                options = list(
+                    `selected-text-format` = "static",
+                    title = "Column Stagger"
+                )
+            )
+        ),
+        div(
+            style = "display: inline-block",
+            pickerInput(
+                inputId = "rowStagger",
+                choices = list("Yes" = 1, "No" = 0),
+                multiple = TRUE,
+                options = list(
+                    `selected-text-format` = "static",
+                    title = "Row Stagger"
+                )
+            )
+        ),
+        div(
+            style = "display: inline-block",
+            pickerInput(
+                inputId = "switchType",
+                choices = list(
+                    "Cherry MX" = "mxCompatible",
+                    "Kailh Choc V1" = "chocV1",
+                    "Kailh Choc V2" = "chocV2"
+                ),
+                multiple = TRUE,
+                options = list(
+                    `selected-text-format` = "static",
+                    title = "Switch Type"
+                )
+            )
+        ),
+        div(
+            style = "display: inline-block",
+            pickerInput(
+                inputId = "rotaryEncoder",
+                choices = list("Yes" = 1, "No" = 0),
+                multiple = TRUE,
+                options = list(
+                    `selected-text-format` = "static",
+                    title = "Rotary Encoder"
+                )
+            )
+        ),
+        div(
+            style = "display: inline-block",
+            pickerInput(
+                inputId = "wireless",
+                choices = list("Yes" = 1, "No" = 0),
+                multiple = TRUE,
+                options = list(
+                    `selected-text-format` = "static",
+                    title = "Wireless"
+                )
+            )
+        ),
+        div(
+            style = "display: inline-block",
+            pickerInput(
+                inputId = "onePiece",
+                choices = list("One-piece" = 1, "Two halves" = 0),
+                multiple = TRUE,
+                options = list(
+                    `selected-text-format` = "static",
+                    title = "One-piece"
+                )
+            )
+        ),
+        div(
+            style = "display: inline-block",
+            pickerInput(
+                inputId = "availability",
+                choices = list("DIY" = "diy", "Pre-built" = "prebuilt"),
+                multiple = TRUE,
+                options = list(
+                    `selected-text-format` = "static",
+                    title = "Availability"
+                )
+            )
+        )
+    )
+}
+
+sidebarMenuItems <- function() {
+    list(
+        menuItem(
+            text = "Compare",
+            icon = icon(name = "balance-scale", lib = "font-awesome"),
+            tabName = "compare"
+        ),
+        menuItem(
+            text = "Keyboards",
+            icon = icon(name = "keyboard", lib = "font-awesome"),
+            tabName = "keyboards"
+        ),
+        menuItem(
+            text = "About",
+            icon = icon(name = "question-circle", lib = "font-awesome"),
+            tabName = "about"
+        ),
+        menuItem(
+            text = "",
+            icon = icon(name = "github", lib = "font-awesome"),
+            tabName = "github"
+        )
+    )
+}
+
+sortSelectButtons <- function() {
+    list(
+        div(
+            style = "display: inline-block;",
+            pickerInput(
+                inputId = "sortKeyboards",
+                choices = c("Name", "# Keys"),
+                selected = "Name",
+                options = list(
+                    `selected-text-format` = "static",
+                    title = "Sort"
+                )
+            )
+        ),
+        actionButton(
+            inputId = "selectAll",
+            label = NULL,
+            icon = icon("check-square"),
+            inline = TRUE
+        ),
+        actionButton(
+            inputId = "reset",
+            label = NULL,
+            icon = icon("undo"),
+            inline = TRUE
+        ),
+        prettyCheckboxGroup(
+            inputId = "keyboard",
+            label = NULL,
+            choices = keyboards$nameKeys,
+            shape = "curve",
+            outline = TRUE,
+            animation = "pulse"
+        )
+    )
+}
+
+printButtons <- function() {
+    list(
+        downloadButton(
+            outputId = "printFile",
+            label = "Print to scale (PDF)"
+        ),
+        # Print/display option
+        div(
+            style = "display: inline-block",
+            dropdown(
+                icon = icon("cog"),
+                prettyRadioButtons(
+                    inputId   = "printSize",
+                    label     = "Print size:",
+                    choices   = list("A4" = "A4", "Letter (8.5x11)" = "Letter"),
+                    selected  = "A4",
+                    animation = "pulse"
+                ),
+                prettyRadioButtons(
+                    inputId   = "printSepPages",
+                    label     = "Print on seperate pages?",
+                    choices   = list("Yes" = TRUE, "No" = FALSE),
+                    selected  = FALSE,
+                    animation = "pulse"
+                ),
+                prettyRadioButtons(
+                    inputId = "keyboardHalf",
+                    label = "Keyboard half:",
+                    choices = c("Left (mirrored)", "Right"),
+                    selected = "Right",
+                    animation = "pulse"
+                )
+            )
+        )
+    )
+}
+
+footer <- function() {
+    div(includeHTML(file.path("includes", "footer.html")))
+}
