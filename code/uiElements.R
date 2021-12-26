@@ -35,8 +35,8 @@ filterButtons <- function() {
             pickerInput(
                 inputId = "hasNumRow",
                 choices = list(
-                    "Only with number row" = 1,
-                    "Only without number row" = 0
+                    "With" = 1,
+                    "Without" = 0
                 ),
                 multiple = TRUE,
                 options = list(
@@ -113,7 +113,7 @@ filterButtons <- function() {
             style = "display: inline-block",
             pickerInput(
                 inputId = "onePiece",
-                choices = list("One-piece" = 1, "Two halves" = 0),
+                choices = list("Yes" = 1, "No" = 0),
                 multiple = TRUE,
                 options = list(
                     `selected-text-format` = "static",
@@ -152,11 +152,6 @@ sidebarMenuItems <- function() {
             text = "About",
             icon = icon(name = "question-circle", lib = "font-awesome"),
             tabName = "about"
-        ),
-        menuItem(
-            text = "",
-            icon = icon(name = "github", lib = "font-awesome"),
-            tabName = "github"
         )
     )
 }

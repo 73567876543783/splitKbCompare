@@ -1,7 +1,10 @@
 
 ui <- dashboardPage(
     skin = "black",
-    dashboardHeader(title = "Split Keyboard Comparison"),
+    dashboardHeader(
+        title = "Split Keyboard Comparison",
+        tags$li(class = "dropdown", style = "margin-right: 15px; margin-top: 15px;", footer())
+        ),
     dashboardSidebar(
         sidebarMenu(
             sidebarMenuItems()
@@ -12,6 +15,8 @@ ui <- dashboardPage(
             tabItem(
                 tabName = "compare",
                 fluidRow(
+                    column(
+                        width = 3,
                         box(
                             title = "Filters",
                             width = NULL,
@@ -25,28 +30,27 @@ ui <- dashboardPage(
                             width = NULL,
                             # Buttons
                             sortSelectButtons(),
-                            # Footer
-                            footer()
-                        ),
+                        )
+                    ),
+                    column(
+                        width = 9,
                         box(
+                            title = "Keyboard Overlay",
                             width = NULL,
-                            background = "black",
                             # Button
                             printButtons(),
                             # Image
-                            imageOutput("layout")
+                            imageOutput("layout", height = 530)
                         )
                     )
+                )
             ),
             tabItem(
                 tab = "keyboards",
                 fluidRow(
                     box(
                         width = 12,
-                        DT::dataTableOutput("keyboardsDT"), br(),
-                        # Insert footer
-                        footer(),
-                        br()
+                        DT::dataTableOutput("keyboardsDT"), 
                     )
                 )
             ),
@@ -56,10 +60,6 @@ ui <- dashboardPage(
                     box(
                         width = 7,
                         includeMarkdown("README.md"),
-                        br(),
-                        # Insert footer
-                        footer(),
-                        br()
                     )
                 )
             )
