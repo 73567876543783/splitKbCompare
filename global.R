@@ -22,5 +22,6 @@ source(file.path("code", "uiElements.R"))
 # Load data
 keyboards <- loadKeyboards()
 keyboardsDT <- loadKeyboardsDT(keyboards)
+inputKeyboardsDT <- keyboardsDT %>% select(Name, `# of keys`)
 images <- loadImages()
 palette <- loadColorPalette()

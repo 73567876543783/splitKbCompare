@@ -48,6 +48,20 @@ server <- function(input, output, session) {
             options = list(pageLength = 50, autoWidth = TRUE, scrollX = TRUE)
         )
     })
+    
+    output$inputKeyboards <- DT::renderDataTable({
+        DT::datatable(
+            inputKeyboardsDT,
+            escape = FALSE,
+            style = "bootstrap",
+            extensions = "Select",
+            rownames = FALSE,
+            options = list(
+                paging = FALSE, 
+                buttons = c("selectAll", "selectNone"),
+                columnDefs = list(list(className = "select-checkbox", targets = 0, orderable = FALSE)))
+        )
+    })
 
     # Control reset button
     observeEvent(input$reset,

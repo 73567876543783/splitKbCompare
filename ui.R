@@ -29,6 +29,7 @@ ui <- dashboardPage(
                             title = "Keyboards",
                             width = NULL,
                             # Buttons
+                            dataTableOutput("inputKeyboards"),
                             sortSelectButtons(),
                         )
                     ),
